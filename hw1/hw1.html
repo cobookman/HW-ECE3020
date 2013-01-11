@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<!-- PROGRAM HERE -->
+	<script>
+	function main() {
+        var input = eval($("#inArr").val());
+        //Should put error checkign but w/e
+        var output = distinct(input);
+        var outText = "";
+        for(var k in output) {
+            outText+= k + ", ";
+        }
+        $("#output").text('[' + outText.substring(0,outText.length-2) + ']');
+    }
+    function distinct(arr) {
+        var out = new Array();
+        for(var i=0; i<arr.length; i++) {
+            out[arr[i].toString()]=arr[i];
+        }
+        return out;
+    }
+</script>
+	</head>
+	<body>
+        Insert array here w/proper JS syntax<br />
+        EX: [1, 3, 4, 5, 6]<br />
+        <input  name="inArr" id="inArr" />
+		<button onclick="main()">Get rid of duplicates</button>
+		<div id="output">
+		</div>
+	</body>
+</html>
