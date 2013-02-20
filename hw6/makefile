@@ -1,2 +1,2 @@
 all:
-		g++ hw5.c -lgmp -o prime
+		g++ hw6.c -lgmp -o prime
