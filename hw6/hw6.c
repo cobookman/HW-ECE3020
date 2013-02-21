@@ -1,3 +1,11 @@
+/**********************************
+ *           primeTest            *
+ *       By: Colin Bookman        *
+ *            ECE 3020            *
+ *     Warning, does not take     *
+ * collisions into consideration. *
+ **********************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <gmp.h>
