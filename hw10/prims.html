@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- ImportJQuery for reading the inputs and outputting answer -->
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <style>
+    table { border-collapse:collapse; text-align: center; }
+     table,th, td { border: 1px solid black; padding:5px;}
+    </style>
+	<!-- PROGRAM HERE -->
+  <script>
+    /* Colin Bookman
+    *  28, March
+    *  HW 10  - ECE 3020
+    */
+
+
+    /* MAIN:
+    *    Find min weight of graph
+    */
+    function main() {
+      //Get input
+      var graph = eval($("#inArr").val());
+      var output = prims(graph); //Sort recursivley our input
+      $("#output").html(output);
+    }
+    //Graph array is adjacency array w/weights
+    function prims(graph) {
+      //First node to visit is 0
+      var nextNode = undefined;
+      //Print graph:
+      var output = "<table>";
+      for(var r = 0; r<graph[0].length; r++) {
+        output+="<tr>";
+        for(var c = 0; c<graph[0].length; c++) {
+          output += "<td>" + graph[r][c] + "</td>";
+        } output += "</tr>";
+      } output+= "</table><br />";
+      output += "<br />The edges w/respective weights are: <br />";
+      var nodesVisited = [0];
+      //As we visit 0 frist, get rid of col 0
+      for(var row=0; row<graph[0].length; row++) {
+        graph[row][0] = 0;
+      }
+      //Loop till we've visted every node
+      while(nodesVisited.length != graph[0].length) {
+        //Get the next node to visit
+        var min_weight = undefined;
+        var fromNode = undefined;
+
+        //Find min value for the nodes we've visited
+        for(var beenTo = 0; beenTo<nodesVisited.length; beenTo++) {
+          //Get row we're looking at
+          var row = nodesVisited[beenTo];
+          //find min value in row we're looking at
+          for(var col = 0; col<graph[0].length; col++) {
+            if(col!=row && graph[row][col]!=0 && (min_weight==undefined || graph[row][col]<min_weight)) {
+              min_weight = graph[row][col];
+              nextNode = col;
+              fromNode = row;
+            }
+          }
+        }
+        //Add our newly chosen edge to the output
+        output += "v" + (fromNode+1) + " to " + "v" + (nextNode+1) + " has a weight of: " + min_weight + "<br />";
+
+        //Zero out last visited column, as we Don't want to visit it again
+        for(var row=0; row<graph[0].length; row++) {
+          graph[row][nextNode] = 0;
+        }
+
+        //Add the node to our 'visited' list
+        nodesVisited.push(nextNode);
+        //=====DEBUGGING INFORMATION =======
+        // output += "<br /><table>";
+        // for(var r = 0; r<graph[0].length; r++) {
+        //   output+="<tr>";
+        //   for(var c = 0; c<graph[0].length; c++) {
+        //     output += "<td>" + graph[r][c] + "</td>";
+        //   } output += "</tr>";
+        // } output+= "</table><br />";
+
+      }
+      return output;
+    }
+</script>
+	</head>
+	<body>
+        Insert 2darray here w/proper JS syntax<br />
+        EX: [ [1, 2, 3], [4, 5, 6] ]<br />
+        <textarea style="width:300px; height:300px;" name="inArr" id="inArr" /></textarea>
+		<button onclick="main()">Find MWT</button>
+		<div id="output">
+		</div>
+	</body>
+</html>
